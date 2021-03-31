@@ -34,7 +34,6 @@ function numberOfOccurrencesInText(word, text) {
   return wordCount;
 }
 
-// UI Logic
 function omit(word) {
   let changeWord = word;
   const badWords = ["zoinks", "muppeteer", "biffaroni", "loopdaloop"]
@@ -46,11 +45,6 @@ function omit(word) {
   })
   return changeWord;
 }
-
-
-
-
-
 
 function boldPassage(word, text) {
   if (noInputtedWord(word, text)) {
@@ -70,7 +64,7 @@ function boldPassage(word, text) {
   });
   return htmlString + "</p>";
 }
-
+// UI Logic
 $(document).ready(function(){
   $("form#word-counter").submit(function(event){
     event.preventDefault();
@@ -85,3 +79,8 @@ $(document).ready(function(){
     $("#bolded-passage").html(boldPassage(word, passage));
   });
 });
+
+
+
+
+
