@@ -1,3 +1,9 @@
+// Utility Logic
+
+function noInputtedWord(word, text) {
+  return ((text.trim().length === 0) || (word.trim().length === 0));
+}
+
 // Business Logic
 
 function wordCounter(text) {
@@ -6,35 +12,54 @@ function wordCounter(text) {
   }
   let wordCount = 0;
   const wordArray = text.split(" ");
-  wordArray.forEach(function(element) {
-    if (!Number(element)){
-    wordCount++;
+  wordArray.forEach(function(word) {
+    if (!Number(word) && omit(word) === word) {
+      wordCount++;
     }
   });
   return wordCount;
 }
 
 function numberOfOccurrencesInText(word, text) {
-  if ((text.trim().length === 0) || (word.trim().length === 0)) {
+  if (noInputtedWord(word, text)) {
     return 0;
   }
   const wordArray = text.split(" ");
   let wordCount = 0;
   wordArray.forEach(function(element) {
     if (element.toLowerCase().includes(word.toLowerCase())) {
-      wordCount++
+      wordCount++;
     }
   });
   return wordCount;
 }
 
 // UI Logic
+function omit(word) {
+  let changeWord = word;
+  const badWords = ["zoinks", "muppeteer", "biffaroni", "loopdaloop"]
+  badWords.forEach(function(badWord) {
+    if (word.includes(badWord)) {
+      changeWord = ""
+    } else {
+    }
+  })
+  return changeWord;
+}
+
+
+
+
+
 
 function boldPassage(word, text) {
+  if (noInputtedWord(word, text)) {
+    return "";
+  }
   let htmlString = "<p>"
   let textArray = text.split(" ");
   textArray.forEach(function(element, index) {
-    if (word === element) {
+    if (element.toLowerCase().includes(word.toLowerCase())) {
       htmlString = htmlString.concat("<b>" + element + "</b>");
     } else {
       htmlString = htmlString.concat(element);
@@ -45,21 +70,18 @@ function boldPassage(word, text) {
   });
   return htmlString + "</p>";
 }
+
 $(document).ready(function(){
   $("form#word-counter").submit(function(event){
     event.preventDefault();
     const passage = $("#text-passage").val();
-    const word = $("#word").val();
+    let word = $("#word").val();
+    word = omit(word);
     const wordCount = wordCounter(passage);
     const occurrencesOfWord = numberOfOccurrencesInText(word, passage);
+    $("input#word").val(word);
     $("#total-count").html(wordCount);
     $("#selected-count").html(occurrencesOfWord);
-
     $("#bolded-passage").html(boldPassage(word, passage));
   });
-
 });
-
-
-
-

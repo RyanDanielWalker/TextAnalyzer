@@ -1,4 +1,5 @@
-Describe: wordCounter()
+## Describe: wordCounter()
+----
 
 Test: "It should return 1 if a passage has just one word."
 Code:
@@ -20,7 +21,8 @@ Test: "It should not count numbers as words."
 Code: wordCounter("hi there 77 19");
 Expected Output: 2
 
-Describe: numberOfOccurrencesInText()
+## Describe: numberOfOccurrencesInText()
+----
 Test: "It should return 0 occurrences of a word for an empty string."
 Code:
 const text = "";
@@ -69,3 +71,11 @@ const word = "";
 const text = "red RED Red!";
 wordCounter(word, text);
 Expected Output: 0
+
+## Describe: omit()
+Test: "If a bad word is entered into passage, it will return 1"
+Code:
+const badWords = ["zoinks", "muppeteer", "biffaroni", "loopdaloop"]
+const passage = $("#text-passage").val()
+omit(badWords, passage)
+Expected Output: 1
